@@ -4,7 +4,7 @@ export const Wrapper = styled.div``
 
 export const Jubotron = styled.div`
   width: 100%;
-  height: 40vh;
+  height: 50vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,6 +30,10 @@ export const CommuteBtn = styled.button`
   :active {
     transform: scale(1.01);
   }
+`
+
+export const TimeInfo = styled.div`
+  padding: 1rem 0;
 `
 
 export const TaskList = styled.div`
@@ -87,6 +91,7 @@ export const ModalButtons = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  gap: 1rem;
 `
 
 interface ModalButtonProps {
@@ -98,26 +103,6 @@ export const ModalButton = styled.button<ModalButtonProps>`
   padding: 1rem 2rem;
   border: none;
   border-radius: 0.5rem;
-  color: #fff;
-  font-size: 1rem;
-  cursor: pointer;
-`
-
-export const AcceptButton = styled.button`
-  padding: 1rem 2rem;
-  border: none;
-  border-radius: 0.5rem;
-  background: #23cf5f;
-  color: #fff;
-  font-size: 1rem;
-  cursor: pointer;
-`
-
-export const RejectButton = styled.button`
-  padding: 1rem 2rem;
-  border: none;
-  border-radius: 0.5rem;
-  background: #d8534e;
   color: #fff;
   font-size: 1rem;
   cursor: pointer;

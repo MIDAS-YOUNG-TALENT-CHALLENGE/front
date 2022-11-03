@@ -1,12 +1,7 @@
 import { useState } from 'react'
 import * as S from './style'
 import Task from './Task'
-import {
-  LeaveCommuteState,
-  AttendanceCommuteState,
-  MyInfo,
-  Task as TaskType
-} from '../../types'
+import { CommuteState, MyInfo, Task as TaskType } from '../../types'
 import { useMutation } from '../../hooks'
 import useConfigData from '../../hooks/useConfigData'
 import { useNavigate } from 'react-router-dom'
@@ -22,14 +17,14 @@ const Main = () => {
     }
   })
 
-  useConfigData<AttendanceCommuteState | LeaveCommuteState>({
+  const [commute] = useConfigData<CommuteState>({
     url: '/api/commute',
     onSuccess: data => {
       setState(data.state)
     }
   })
 
-  useConfigData<MyInfo>({
+  const [myInfo] = useConfigData<MyInfo>({
     url: '/api/user/my',
     onSuccess: data => {
       if (data.role === 'supervisor') navigate('/manage')
@@ -60,6 +55,12 @@ const Main = () => {
         >
           {state === 'leave' ? '출근' : '퇴근'}하기
         </S.CommuteBtn>
+        {commute?.state === 'attendance' && (
+          <S.TimeInfo>
+            현재{' '}
+            {`${commute.timeFromAttendanceHour}시간 ${commute.timeFromAttendanceMinute}분 근무 중입니다!`}
+          </S.TimeInfo>
+        )}
       </S.Jubotron>
       <S.TaskList>
         <S.TaskHeads>
@@ -69,7 +70,7 @@ const Main = () => {
           <S.TaskHead>위치</S.TaskHead>
         </S.TaskHeads>
         {tasks.map(i => (
-          <Task key={i.taskId} task={i} />
+          <Task key={i.taskId} task={i} userId={myInfo?.userId} />
         ))}
       </S.TaskList>
     </S.Wrapper>

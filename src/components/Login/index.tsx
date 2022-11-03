@@ -1,4 +1,6 @@
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { useMutation } from '../../hooks'
 import * as S from './style'
 
 interface FormType {
@@ -7,11 +9,23 @@ interface FormType {
 }
 
 const Login = () => {
-  const { register } = useForm<FormType>()
+  const { register, handleSubmit } = useForm<FormType>()
+  const navigate = useNavigate()
+  const [mutation] = useMutation<{ token: string }>({
+    url: '/api/user/login',
+    onSuccess: data => {
+      localStorage.setItem('accessToken', data.token)
+    }
+  })
+
+  const onSubmit = async (form: FormType) => {
+    await mutation(form)
+    navigate('/')
+  }
 
   return (
     <S.Wrapper>
-      <S.Content>
+      <S.Content onSubmit={handleSubmit(onSubmit)}>
         <h1>Login</h1>
 
         <S.InputWrapper>

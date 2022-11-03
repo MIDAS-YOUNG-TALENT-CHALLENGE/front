@@ -3,7 +3,7 @@ import Portal from '../../portal'
 import * as S from './style'
 import Task from './Task'
 import Modal from './Modal'
-import { LeaveCommuteState, AttendanceCommuteState } from '../../types'
+import { LeaveCommuteState, AttendanceCommuteState, MyInfo } from '../../types'
 import { useMutation } from '../../hooks'
 import useConfigData from '../../hooks/useConfigData'
 import { useNavigate } from 'react-router-dom'
@@ -24,6 +24,13 @@ const Main = () => {
     onSuccess: data => {
       console.log(data)
       setState(data.state)
+    }
+  })
+
+  useConfigData<MyInfo>({
+    url: '/api/user/my',
+    onSuccess: data => {
+      if (data.role === 'supervisor') navigate('/manage')
     },
     onFailure: () => {
       navigate('/login')

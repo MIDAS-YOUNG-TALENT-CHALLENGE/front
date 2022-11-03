@@ -1,92 +1,72 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import { allGetUser } from '../../lib/allGetuser'
+import { viewTask } from '../../lib/viewTask'
+import { TaskDataType } from '../taskChecker/TaskList'
 import ChangeModal from './ChangeModal'
+import TimeState from './TimeState'
+
+export interface UserDataType {
+  nickname: string
+  email: string
+  userId: number
+  role: 'employee' | 'supervisor'
+}
 
 function EmployInfo() {
   const [modal, setModal] = useState(0)
+  const [user, setUser] = useState<UserDataType[]>([])
+  const [sortTask, setSort] = useState({})
+
+  useEffect(() => {
+    allGetUser().then(e => setUser(e.data))
+    viewTask().then(e => {
+      let T = e.data
+      let hash: { [key: string]: any } = {}
+      console.log(T)
+      T.map((e: TaskDataType) => {
+        console.log(hash)
+        if (hash[e.mention.nickname])
+          hash[e.mention.nickname] = [...hash[e.mention.nickname],e]
+        else hash[e.mention.nickname] = [e]
+        
+      })
+      setSort(hash)
+      
+    })
+  }, [])
 
   const offModal = () => setModal(0)
 
   return (
     <>
       {modal !== 0 && <_EmployBackground onClick={offModal} />}
-      {Array(12)
-        .fill(0)
-        .map((e, i) => (
-          <div>
-            {modal === i + 1 && (
-              <_EmployModal lastChild={i > Array(12).length - 7 ? `-${(i-Array(12).length + 6) * 70 + 50}px` : ''}>
-                <ChangeModal />
-              </_EmployModal>
-            )}
-            <_EmployItem onClick={() => setModal(i + 1)}>
-              <_EmployName>{i !== 1 ? "김태완" : "김김모띠띠띠"}</_EmployName>
-              <_EmployWorkTime>{'06:02:11'}</_EmployWorkTime>
-              <_EmployWorking done={false}>
-                {false ? '퇴근' : '출근'}
-              </_EmployWorking>
-            </_EmployItem>
-          </div>
-        ))}
+      {user.map((e, i) => (
+        <TimeState
+          modal={modal}
+          index={i}
+          setModal={setModal}
+          user={e}
+          len={user.length}
+          setUser={(str: string) =>
+            setUser(
+              user.map(i => {
+                if (i.userId === e.userId) return { ...i, nickname: str }
+                return i
+              })
+            )
+          }
+          sortTask={sortTask}
+        />
+      ))}
     </>
   )
 }
 
-const _EmployItem = styled.div`
-  display: flex;
-  width: 700px;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #f2f5f9;
-  border-radius: 5px;
-  padding: 5px 5px;
-
-  position:relative;
-  z-index: 1;
-  margin: 10px 0;
-  :hover {
-    background-color: #dedfe1;
-  }
-  > span {
-    font-size: 20px;
-  }
-`
-
-const _EmployName = styled.div`
-  width: 150px;
-  font-size: 22px;
-  padding: 5px 15px;
-`
-
-const _EmployWorking = styled.span<{ done: boolean }>`
-  color: ${({ done }) => (done ? 'green' : 'red')};
-  margin-right: 10px;
-`
-
-const _EmployWorkTime = styled.span``
-
 const _EmployBackground = styled.div`
   position: absolute;
   width: 100%;
-  height: 100%;
-`
-
-const _EmployModal = styled.div<{lastChild: string}>`
-  position: absolute;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 550px;
-  height: 450px;
-  background-color: white;
-  border-radius: 5px;
-  z-index: 2;
-  margin-left: 160px;
-  margin-top: ${({lastChild}) => lastChild.length && lastChild};
-  > div {
-    width: 425px;
-  }
+  height: 100vh;
 `
 
 export default EmployInfo

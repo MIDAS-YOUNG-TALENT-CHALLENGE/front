@@ -1,53 +1,23 @@
 import styled from 'styled-components'
+import { TaskDataType } from '../taskChecker/TaskList'
 
-function EmployWorkList() {
+interface PropsType {
+  sortTask: { [key: string]: any } | undefined
+}
+
+function EmployWorkList({ sortTask }: PropsType) {
   return (
     <_Wrapper>
-      <_WorkFlowList>
-        <_WorkName>회사 내에 데이터데이스 보안 이슈</_WorkName>
-        <_WorkMention>@데이비드 바커드</_WorkMention>
-        <_WorkProcess process={false}>{false ? '진행중' : '완료'}</_WorkProcess>
-      </_WorkFlowList>
-      <_WorkFlowList>
-        <_WorkName>회사 내에 데이터데이스 보안 이슈</_WorkName>
-        <_WorkMention>@김태완</_WorkMention>
-        <_WorkProcess process={false}>{false ? '진행중' : '완료'}</_WorkProcess>
-      </_WorkFlowList>
-      <_WorkFlowList>
-        <_WorkName>회사 내에 데이터데이스 보안 이슈</_WorkName>
-        <_WorkMention>@김태완</_WorkMention>
-        <_WorkProcess process={false}>{false ? '진행중' : '완료'}</_WorkProcess>
-      </_WorkFlowList>
-      <_WorkFlowList>
-        <_WorkName>회사 내에 데이터데이스 보안 이슈</_WorkName>
-        <_WorkMention>@김태완</_WorkMention>
-        <_WorkProcess process={false}>{false ? '진행중' : '완료'}</_WorkProcess>
-      </_WorkFlowList>
-      <_WorkFlowList>
-        <_WorkName>회사 내에 데이터데이스 보안 이슈</_WorkName>
-        <_WorkMention>@김태완</_WorkMention>
-        <_WorkProcess process={false}>{false ? '진행중' : '완료'}</_WorkProcess>
-      </_WorkFlowList>
-      <_WorkFlowList>
-        <_WorkName>회사 내에 데이터데이스 보안 이슈</_WorkName>
-        <_WorkMention>@김태완</_WorkMention>
-        <_WorkProcess process={false}>{false ? '진행중' : '완료'}</_WorkProcess>
-      </_WorkFlowList>
-      <_WorkFlowList>
-        <_WorkName>회사 내에 데이터데이스 보안 이슈</_WorkName>
-        <_WorkMention>@김태완</_WorkMention>
-        <_WorkProcess process={false}>{false ? '진행중' : '완료'}</_WorkProcess>
-      </_WorkFlowList>
-      <_WorkFlowList>
-        <_WorkName>회사 내에 데이터데이스 보안 이슈</_WorkName>
-        <_WorkMention>@김태완</_WorkMention>
-        <_WorkProcess process={false}>{false ? '진행중' : '완료'}</_WorkProcess>
-      </_WorkFlowList>
-      <_WorkFlowList>
-        <_WorkName>회사 내에 데이터데이스 보안 이슈</_WorkName>
-        <_WorkMention>@김태완</_WorkMention>
-        <_WorkProcess process={false}>{false ? '진행중' : '완료'}</_WorkProcess>
-      </_WorkFlowList>
+      {sortTask &&
+        sortTask.map((e:TaskDataType) => (
+          <_WorkFlowList>
+            <_WorkName>{e.title}</_WorkName>
+            <_WorkMention>@{e.mention.nickname}</_WorkMention>
+            <_WorkProcess process={e.important}>
+              {e.important ? '중요' : '쉬움'}
+            </_WorkProcess>
+          </_WorkFlowList>
+        ))}
     </_Wrapper>
   )
 }
@@ -64,11 +34,11 @@ const _Wrapper = styled.div`
   }
   ::-webkit-scrollbar-track {
     background-color: #e4e4e4;
-    border-radius:8px;
+    border-radius: 8px;
   }
   ::-webkit-scrollbar-thumb {
     background-color: black;
-    border-radius:10px;
+    border-radius: 10px;
   }
 `
 
@@ -82,7 +52,7 @@ const _WorkFlowList = styled.div`
 `
 
 const _WorkName = styled.span`
-width: 200px;
+  width: 200px;
 `
 
 const _WorkMention = styled.span`

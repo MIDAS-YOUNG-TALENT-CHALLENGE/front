@@ -9,6 +9,8 @@ function MainManager() {
   )
 }
 
-const _Wrapper = styled.div``
+const _Wrapper = styled.div`
+  height: 100%;
+`
 
 export default MainManager

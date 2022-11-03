@@ -1,16 +1,19 @@
 import styled from 'styled-components'
 import { allGetUser } from '../../lib/allGetuser'
 import ModalEmploy from './ModalEmploy'
+import { Link } from 'react-router-dom'
 
 function EmployList() {
-  console.log(allGetUser().then(e => console.log(e)))
   return (
     <_Wrapper>
       <_TopCommandBox>
         <_DepartWrap>
           관리자 코드: <_DepartCode>HD2M8</_DepartCode>
         </_DepartWrap>
+        <Link to="/taskcommand">
         <_TaskMakerButton>업무 생성하기</_TaskMakerButton>
+        </Link>
+        
       </_TopCommandBox>
       <_TopCommmandLine />
       <ModalEmploy />
@@ -20,9 +23,9 @@ function EmployList() {
 
 const _Wrapper = styled.div`
   display: Flex;
+  height:100%;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 00px;
   position: relative;
 `
 

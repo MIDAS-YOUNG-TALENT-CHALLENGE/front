@@ -1,28 +1,62 @@
 import styled from 'styled-components'
 import EmployWorkList from './WorkListModal'
-import { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, Dispatch, SetStateAction } from 'react'
+import { WorkDataType } from './TimeState'
+import { UserDataType } from './ModalEmploy'
+import { changeLeave } from '../../lib/changeLeave'
+import { changeName } from '../../lib/changeName'
 
-function ChangeModal() {
+interface PropsType {
+  work: WorkDataType
+  user: UserDataType
+  setUser: (str: string) => void
+  setWork: Dispatch<SetStateAction<WorkDataType>>
+  sortTask: { [key: string]: any }
+}
+
+function ChangeModal({ work, user, setUser, setWork, sortTask }: PropsType) {
   const [revise, setVise] = useState(false)
-  const [work, setWork] = useState(false)
+  const [prework, setPreWork] = useState(work.state !== 'attendance')
+  const [prename, setName] = useState(user.nickname)
 
-  const reviseCheck = () => setVise(!revise)
-  const changeWork = () => revise && setWork(!work)
+  const workState = work.state !== 'attendance'
 
-  const nameChange = (e: ChangeEvent<HTMLInputElement>) => {}
+  const reviseCheck = () => {
+    setVise(!revise)
+    if (revise && workState !== prework) {
+      try {
+        changeLeave(prework ? 'attendance' : 'leave')
+      } catch (e) {}
+      setWork({ ...work, state: prework ? 'attendance' : 'leave' })
+    }
+    if (revise && prename !== user.nickname) {
+      try {
+        changeName(user.userId, prename)
+      } catch (e) {}
+      setUser(prename)
+    }
+  }
+
+  const workChcnage = () => revise && setPreWork(!prework)
+  const nameChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setName(e.target.value)
 
   return (
     <>
       <div>
         <_ModalName>
-          {revise ? <ChangeInput onChange={nameChange} /> : <div>김태완</div>}
-          <_WorkingCheck button={revise} leave={work} onClick={changeWork}>
-            {work ? '퇴근' : '출근'}
+          {revise ? (
+            <ChangeInput onChange={nameChange} value={prename} />
+          ) : (
+            <div>{user.nickname}</div>
+          )}
+          <_WorkingCheck button={revise} leave={prework} onClick={workChcnage}>
+            {prework ? '퇴근' : '출근'}
           </_WorkingCheck>
         </_ModalName>
-        <_ModalEmail>tao710803@gmail.com</_ModalEmail>
+        <_ModalEmail>{user.email}</_ModalEmail>
       </div>
-      <EmployWorkList />
+      <EmployWorkList sortTask={sortTask[user.nickname]} />
       <_ReviseButton onClick={reviseCheck}>
         {revise ? '완료' : '수정'}
       </_ReviseButton>
@@ -50,7 +84,7 @@ const _ReviseButton = styled.button`
   background-color: white;
   border-radius: 5px;
   color: #48dbfb;
-  margin: 10px 0 0 330px; 
+  margin: 10px 0 0 330px;
   font-size: 16px;
   font-weight: bold;
 `

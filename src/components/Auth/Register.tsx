@@ -8,8 +8,8 @@ interface FormType {
   role: 'supervisor' | 'employee'
   email: string
   password: string
-  teamId?: string
-  teamCode?: string
+  teamName?: string
+  teamCode: number
 }
 
 const Register = () => {
@@ -51,22 +51,22 @@ const Register = () => {
             <S.SelectOption value="supervisor">관리자</S.SelectOption>
           </S.SelectBox>
 
-          {watch('role') === 'employee' && (
+          {watch('role') && (
             <S.Input
               {...register('teamCode', {
                 required: watch('role') === 'employee'
               })}
-              type="email"
+              type="number"
               placeholder="팀 코드 입력"
             />
           )}
 
           {watch('role') === 'supervisor' && (
             <S.Input
-              {...register('teamId', {
+              {...register('teamName', {
                 required: watch('role') === 'supervisor'
               })}
-              type="email"
+              type="text"
               placeholder="부서명 입력"
             />
           )}

@@ -15,12 +15,12 @@ const Login = () => {
     url: '/api/user/login',
     onSuccess: data => {
       localStorage.setItem('accessToken', data.token)
+      navigate('/')
     }
   })
 
   const onSubmit = async (form: FormType) => {
     await mutation(form)
-    navigate('/')
   }
 
   return (

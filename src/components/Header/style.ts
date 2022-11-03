@@ -15,6 +15,12 @@ export const Wrapper = styled.div`
   z-index: 10;
 `
 
+export const Navigation = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+`
+
 export const LogoutBtn = styled.button`
   background: #333030;
   color: #fff;

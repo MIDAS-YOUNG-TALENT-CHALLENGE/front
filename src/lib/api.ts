@@ -10,7 +10,7 @@ const getToken = () => {
 
 api.interceptors.request.use(config => {
   config.headers!.Authorization = `Bearer ${getToken()}`
-
+  
   return config
 })
 

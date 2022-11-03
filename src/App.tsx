@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { Route,Routes } from "react-router-dom";
 
 function App() {
-  return <div></div>;
+  return <Routes>
+  </Routes>
 }
 
 export default App;

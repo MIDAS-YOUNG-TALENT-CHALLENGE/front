@@ -74,4 +74,49 @@ export const ModalWrapper = styled.div`
   max-width: 30rem;
   max-height: 35rem;
   border-radius: 0.5rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`
+
+export const ModalButtons = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`
+
+interface ModalButtonProps {
+  type: any
+}
+
+export const ModalButton = styled.button<ModalButtonProps>`
+  background: ${({ type }) => (type === 'accept' ? '#23cf5f' : '#d8534e')};
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+`
+
+export const AcceptButton = styled.button`
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #23cf5f;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+`
+
+export const RejectButton = styled.button`
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #d8534e;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
 `

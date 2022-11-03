@@ -3,17 +3,16 @@ import api from '../lib/api'
 
 interface Props<T> {
   url: string
-  body?: any
   onSuccess?: (data: T) => void
 }
 
-type ReturnType<T> = [() => Promise<void>, T | null, boolean]
+type ReturnType<T> = [(body: any) => Promise<void>, T | null, boolean]
 
-const useMutation = <T,>({ url, body, onSuccess }: Props<T>): ReturnType<T> => {
+const useMutation = <T,>({ url, onSuccess }: Props<T>): ReturnType<T> => {
   const [loading, setLoading] = useState<boolean>(false)
   const [data, setData] = useState<T | null>(null)
 
-  const mutate = async () => {
+  const mutate = async (body?: any) => {
     setLoading(true)
     try {
       const { data } = await api.post<T>(url, body)

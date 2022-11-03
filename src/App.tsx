@@ -5,6 +5,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<P.MainPage />} />
+      <Route path="/login" element={<P.LoginPage />} />
     </Routes>
   )
 }

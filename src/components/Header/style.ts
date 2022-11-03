@@ -8,9 +8,19 @@ export const Wrapper = styled.div`
   left: 0;
   background: #fff;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   padding: 0 1rem;
   box-sizing: border-box;
   z-index: 10;
+`
+
+export const LogoutBtn = styled.button`
+  background: #333030;
+  color: #fff;
+  outline: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
 `

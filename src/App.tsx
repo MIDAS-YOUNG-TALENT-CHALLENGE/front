@@ -4,7 +4,7 @@ import * as P from './pages'
 function App() {
   return (
     <Routes>
-      <Route path="/admin" element={<P.AdminPage />} />
+      <Route path="/" element={<P.MainPage />} />
     </Routes>
   )
 }

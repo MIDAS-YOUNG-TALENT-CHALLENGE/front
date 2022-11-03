@@ -4,7 +4,7 @@ import * as S from './style'
 import Task from './Task'
 import Modal from './Modal'
 
-const Admin = () => {
+const Main = () => {
   const [show, setShow] = useState<boolean>(false)
 
   return (
@@ -36,4 +36,4 @@ const Admin = () => {
   )
 }
 
-export default Admin
+export default Main

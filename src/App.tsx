@@ -1,8 +1,12 @@
-import styled from 'styled-components'
 import { Route, Routes } from 'react-router-dom'
+import * as P from './pages'
 
 function App() {
-  return <Routes></Routes>
+  return (
+    <Routes>
+      <Route path="/admin" element={<P.AdminPage />} />
+    </Routes>
+  )
 }
 
 export default App

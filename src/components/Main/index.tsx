@@ -1,17 +1,20 @@
 import { useState } from 'react'
-import Portal from '../../portal'
 import * as S from './style'
 import Task from './Task'
-import Modal from './Modal'
-import { LeaveCommuteState, AttendanceCommuteState, MyInfo } from '../../types'
+import {
+  LeaveCommuteState,
+  AttendanceCommuteState,
+  MyInfo,
+  Task as TaskType
+} from '../../types'
 import { useMutation } from '../../hooks'
 import useConfigData from '../../hooks/useConfigData'
 import { useNavigate } from 'react-router-dom'
 
 const Main = () => {
   const navigate = useNavigate()
-  const [show, setShow] = useState<boolean>(false)
   const [state, setState] = useState<'attendance' | 'leave'>('leave')
+  const [tasks, setTasks] = useState<TaskType[]>([])
   const [onCommute] = useMutation({
     url: '/api/commute/check',
     onSuccess: () => {
@@ -22,7 +25,6 @@ const Main = () => {
   useConfigData<AttendanceCommuteState | LeaveCommuteState>({
     url: '/api/commute',
     onSuccess: data => {
-      console.log(data)
       setState(data.state)
     }
   })
@@ -34,6 +36,13 @@ const Main = () => {
     },
     onFailure: () => {
       navigate('/login')
+    }
+  })
+
+  useConfigData<TaskType[]>({
+    url: '/api/task',
+    onSuccess: data => {
+      setTasks(data)
     }
   })
 
@@ -57,21 +66,12 @@ const Main = () => {
           <S.TaskHead>상태</S.TaskHead>
           <S.TaskHead>제목</S.TaskHead>
           <S.TaskHead>대상</S.TaskHead>
+          <S.TaskHead>위치</S.TaskHead>
         </S.TaskHeads>
-        <Task onClick={() => setShow(true)} />
-        <Task />
-        <Task />
-        <Task />
-        <Task />
-        <Task />
-        <Task />
-        <Task />
+        {tasks.map(i => (
+          <Task key={i.taskId} task={i} />
+        ))}
       </S.TaskList>
-      {show && (
-        <Portal onClose={() => setShow(false)}>
-          <Modal />
-        </Portal>
-      )}
     </S.Wrapper>
   )
 }

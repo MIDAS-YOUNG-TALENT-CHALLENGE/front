@@ -1,20 +1,24 @@
+import { Task } from '../../types'
 import * as S from './style'
 
-const Modal = () => {
+interface Props {
+  task: Task
+}
+
+const Modal = ({ task }: Props) => {
+  console.log(task)
   return (
     <S.ModalWrapper onClick={e => e.stopPropagation()}>
       <div>
-        <h2>업무 제목</h2>
-        <p>업무 대상 : 모두</p>
-        <p>
-          어쩌고 저쩌고어쩌고 저쩌고어쩌고 저쩌고어쩌고 저쩌고어쩌고
-          저쩌고어쩌고 저쩌고어쩌고 저쩌고어쩌고 저쩌고어쩌고 저쩌고어쩌고
-          저쩌고어쩌고 저쩌고어쩌고 저쩌고어쩌고 저쩌고어쩌고 저쩌고어쩌고
-          저쩌고어쩌고 저쩌고
-        </p>
+        <h2>{task.title}</h2>
+        <p>업무 대상 : {task.mention?.nickname ?? '모두'}</p>
+        <p>{task.description}</p>
       </div>
       <S.ModalButtons>
-        <S.ModalButton type={'accept'}>수락</S.ModalButton>
+        {!task.started && <S.ModalButton type={'accept'}>수락</S.ModalButton>}
+
+        <S.ModalButton type={'accept'}>완료</S.ModalButton>
+        <S.ModalButton type={'failure'}>실패</S.ModalButton>
       </S.ModalButtons>
     </S.ModalWrapper>
   )

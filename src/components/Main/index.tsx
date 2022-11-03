@@ -55,10 +55,10 @@ const Main = () => {
         >
           {state === 'leave' ? '출근' : '퇴근'}하기
         </S.CommuteBtn>
-        {commute?.state === 'attendance' && (
+        {state === 'attendance' && (
           <S.TimeInfo>
             현재{' '}
-            {`${commute.timeFromAttendanceHour}시간 ${commute.timeFromAttendanceMinute}분 근무 중입니다!`}
+            {`${commute?.timeFromAttendanceHour}시간 ${commute?.timeFromAttendanceMinute}분 근무 중입니다!`}
           </S.TimeInfo>
         )}
       </S.Jubotron>

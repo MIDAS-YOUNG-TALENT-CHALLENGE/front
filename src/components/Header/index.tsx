@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <S.Wrapper>
       <S.Navigation>
-        <h2>hello</h2>
+        <h2>Spread Hour</h2>
         <Link to={`/`}>메인페이지</Link>
         <Link to={`/my`}>마이페이지</Link>
       </S.Navigation>

@@ -4,11 +4,15 @@ interface Task {
   title: string
   location: string
   description: string
-  mentionId: number
+  completed: boolean
   createdAt: string
   important: true
-  started: false
-  completed: false
+  started: boolean
+  created: boolean
+  mention: {
+    nickname: string
+    userId: number
+  }
 }
 
 export default Task

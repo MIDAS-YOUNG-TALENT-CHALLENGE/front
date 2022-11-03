@@ -1,9 +1,8 @@
-import styled from "styled-components";
-import { Route,Routes } from "react-router-dom";
+import styled from 'styled-components'
+import { Route, Routes } from 'react-router-dom'
 
 function App() {
-  return <Routes>
-  </Routes>
+  return <Routes></Routes>
 }
 
-export default App;
+export default App

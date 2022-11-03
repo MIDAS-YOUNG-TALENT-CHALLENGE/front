@@ -1,1 +1,2 @@
-export type { default as CommuteState } from './CommuteState'
+export type { default as LeaveCommuteState } from './LeaveCommuteState'
+export type { default as AttendanceCommuteState } from './AttendanceCommuteState'

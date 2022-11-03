@@ -23,7 +23,7 @@ const useConfigData = <T,>({
     ;(async () => {
       setLoading(true)
       try {
-        const { data } = await api.post<T>(url, body)
+        const { data } = await api.get<T>(url, body)
         setData(data)
 
         if (onSuccess) onSuccess(data)

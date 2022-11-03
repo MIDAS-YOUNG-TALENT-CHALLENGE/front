@@ -3,7 +3,7 @@ import Portal from '../../portal'
 import * as S from './style'
 import Task from './Task'
 import Modal from './Modal'
-import { CommuteState } from '../../types'
+import { LeaveCommuteState, AttendanceCommuteState } from '../../types'
 import { useMutation } from '../../hooks'
 import useConfigData from '../../hooks/useConfigData'
 import { useNavigate } from 'react-router-dom'
@@ -14,15 +14,15 @@ const Main = () => {
   const [state, setState] = useState<'attendance' | 'leave'>('leave')
   const [onCommute] = useMutation({
     url: '/api/commute/check',
-    body: { state: 'attendance' },
     onSuccess: () => {
       setState(state === 'leave' ? 'attendance' : 'leave')
     }
   })
 
-  useConfigData<CommuteState>({
+  useConfigData<AttendanceCommuteState | LeaveCommuteState>({
     url: '/api/commute',
     onSuccess: data => {
+      console.log(data)
       setState(data.state)
     },
     onFailure: () => {
@@ -33,9 +33,17 @@ const Main = () => {
   return (
     <S.Wrapper>
       <S.Jubotron>
-        <S.CommuteBtn onClick={onCommute}>
-          {state === 'leave' ? '출근' : '퇴근'}
-        </S.CommuteBtn>{' '}
+        <S.CommuteBtn
+          style={{
+            background: state === 'leave' ? '#bdc3c7' : '#23cf5f',
+            boxShadow: `0 0 1rem ${state === 'leave' ? '#bdc3c7' : '#23cf5f'}`
+          }}
+          onClick={() =>
+            onCommute({ state: state === 'leave' ? 'attendance' : 'leave' })
+          }
+        >
+          {state === 'leave' ? '출근' : '퇴근'}하기
+        </S.CommuteBtn>
       </S.Jubotron>
       <S.TaskList>
         <S.TaskHeads>

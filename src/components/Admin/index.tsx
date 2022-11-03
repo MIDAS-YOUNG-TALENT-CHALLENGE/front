@@ -1,7 +1,12 @@
+import { useState } from 'react'
+import Portal from '../../portal'
 import * as S from './style'
 import Task from './Task'
+import Modal from './Modal'
 
 const Admin = () => {
+  const [show, setShow] = useState<boolean>(false)
+
   return (
     <S.Wrapper>
       <S.Jubotron>
@@ -13,7 +18,7 @@ const Admin = () => {
           <S.TaskHead>제목</S.TaskHead>
           <S.TaskHead>대상</S.TaskHead>
         </S.TaskHeads>
-        <Task />
+        <Task onClick={() => setShow(true)} />
         <Task />
         <Task />
         <Task />
@@ -22,6 +27,11 @@ const Admin = () => {
         <Task />
         <Task />
       </S.TaskList>
+      {show && (
+        <Portal onClose={() => setShow(false)}>
+          <Modal />
+        </Portal>
+      )}
     </S.Wrapper>
   )
 }

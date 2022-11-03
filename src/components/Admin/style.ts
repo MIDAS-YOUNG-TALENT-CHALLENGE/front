@@ -65,3 +65,13 @@ export const Task = styled.div`
   flex: 1;
   text-align: center;
 `
+
+/*  Modal  */
+export const ModalWrapper = styled.div`
+  background: #fff;
+  width: 85%;
+  height: 90%;
+  max-width: 30rem;
+  max-height: 35rem;
+  border-radius: 0.5rem;
+`

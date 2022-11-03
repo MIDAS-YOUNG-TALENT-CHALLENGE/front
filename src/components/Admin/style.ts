@@ -34,8 +34,10 @@ export const CommuteBtn = styled.button`
 
 export const TaskList = styled.div`
   width: 100%;
+  max-width: 50rem;
   padding: 0 2rem;
   box-sizing: border-box;
+  margin: 0 auto 5rem;
 `
 
 export const TaskHeads = styled.div`

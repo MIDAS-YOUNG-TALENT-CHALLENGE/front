@@ -20,7 +20,7 @@ function EmployInfo() {
               </_EmployModal>
             )}
             <_EmployItem onClick={() => setModal(i + 1)}>
-              <_EmployName>김태완</_EmployName>
+              <_EmployName>{i !== 1 ? "김태완" : "김김모띠띠띠"}</_EmployName>
               <_EmployWorkTime>{'06:02:11'}</_EmployWorkTime>
               <_EmployWorking done={false}>
                 {false ? '퇴근' : '출근'}
@@ -53,6 +53,7 @@ const _EmployItem = styled.div`
 `
 
 const _EmployName = styled.div`
+  width: 150px;
   font-size: 22px;
   padding: 5px 15px;
 `

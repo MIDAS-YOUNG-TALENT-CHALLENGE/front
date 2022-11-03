@@ -1,8 +1,9 @@
-import axios from 'axios'
 import styled from 'styled-components'
+import { allGetUser } from '../../lib/allGetuser'
 import ModalEmploy from './ModalEmploy'
 
 function EmployList() {
+  console.log(allGetUser().then(e => console.log(e)))
   return (
     <_Wrapper>
       <_TopCommandBox>

@@ -91,6 +91,7 @@ const _WorkMention = styled.span`
 `
 
 const _WorkProcess = styled.span<{ process: boolean }>`
+  width: 50px;
   color: ${({ process }) => (process ? 'orange' : 'green')};
 `
 

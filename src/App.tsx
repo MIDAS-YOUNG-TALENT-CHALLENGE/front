@@ -11,6 +11,7 @@ function App() {
       <Route path="/" element={<P.MainPage />} />
       <Route path="/login" element={<P.LoginPage />} />
       <Route path="/register" element={<P.RegisterPage />} />
+      <Route path="/my" element={<P.MyPage />} />
     </Routes>
   )
 }

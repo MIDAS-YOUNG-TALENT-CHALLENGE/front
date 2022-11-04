@@ -56,7 +56,7 @@ const Register = () => {
               {...register('teamCode', {
                 required: watch('role') === 'employee'
               })}
-              type="number"
+              type="text"
               placeholder="팀 코드 입력"
             />
           )}
